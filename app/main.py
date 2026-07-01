@@ -47,7 +47,14 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
+from fastapi.responses import Response
+
+@app.options("/{rest_of_path:path}")
+async def preflight_handler(rest_of_path: str):
+    return Response()
+
 # ── Request / Response models ────────────────────────────────
 class GenerateRequest(BaseModel):
     length: float
