@@ -10,7 +10,11 @@ _client_uri: Optional[str] = None  # Track which URI the client was created with
 
 def get_client() -> Optional[AsyncIOMotorClient]:
     global _client, _client_uri
+
     uri = os.getenv("MONGODB_URI")
+
+    print("MONGODB_URI =", uri)   
+
     if not uri:
         return None
     # Re-create client if URI changed (e.g. .env was updated)
