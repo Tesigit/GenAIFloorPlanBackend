@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "D:\projects\fyear\backend\test_login.py", line 7, in t
+    print(await db['users'].find_one({'email': 'test'}))
+                ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
