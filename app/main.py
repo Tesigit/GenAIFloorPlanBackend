@@ -107,6 +107,17 @@ async def root():
 async def health():
     return {"status": "ok"}
 
+@app.get("/cors-test")
+async def cors_test():
+    return {
+        "origins": [
+            "https://gen-ai-floor-plan.vercel.app",
+            "http://localhost:5173",
+            "http://127.0.0.1:5173"
+        ],
+        "regex": r"https://.*\.vercel\.app"
+    }
+
 
 @app.get("/db/health")
 async def db_health():
