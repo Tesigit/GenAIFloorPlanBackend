@@ -2,6 +2,7 @@ from __future__ import annotations
 import os
 from datetime import datetime
 from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Any, Dict
@@ -39,22 +40,16 @@ app = FastAPI(title="GPLAN Backend", version="0.2.0")
 
 app.add_middleware(
     CORSMiddleware,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_origins=[
         "https://gen-ai-floor-plan.vercel.app",
         "http://localhost:5173",
-        "http://127.0.0.1:5173"
+        "http://127.0.0.1:5173",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"],
 )
-from fastapi.responses import Response
-
-@app.options("/{rest_of_path:path}")
-async def preflight_handler(rest_of_path: str):
-    return Response()
-
 # ── Request / Response models ────────────────────────────────
 class GenerateRequest(BaseModel):
     length: float
